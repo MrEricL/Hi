@@ -17,7 +17,7 @@ the pivot that splits the array in half?
 
 
 
-public class QuickSort 
+public class QuickSortTester 
 {
     //--------------v  HELPER METHODS  v--------------
     //swap values at indices x, y in array o
@@ -86,13 +86,42 @@ public class QuickSort
 	return left;
     }
     
-    
+    public static int[] generate(){
+	int[] ret = new int[(int)(Math.random()*15)];
+	
+	for (int i = 0; i < ret.length; i++){
+	    ret[i] = (int)(Math.random()*100);
+	}
+	return ret;
+    }    
 
     //main method for testing
-    public static void main( String[] args ) 
-    {
+    public static void main( String[] args )
 	
+    {
+	int [] test = generate();
+	
+	double totaltime=0;
+	double tries=10;
+	double avg=0;
 
+
+        long time;
+
+	for (int i = 0; i < tries; i++){
+	    
+	    time = (System.nanoTime());	    
+	    qsort (test, 0 , test.length-1);
+	    time=(System.nanoTime()-time);
+	    totaltime+=(double)(time);
+	}
+
+	avg = totaltime/ tries;
+
+	System.out.println("\nAverage Time: "+ avg + " for "+(int) tries +" tests\n");
+
+       	
+	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
 	//get-it-up-and-running, static test case:
 	int [] arr1 = {7,1,5,1,3};
 	System.out.println("\narr1 init'd to: " );
@@ -118,7 +147,7 @@ public class QuickSort
 	qsort( arrN , 0 , arrN.length-1);
 	System.out.println("arrN after sort: " );
 	printArr(arrN);
-	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
+
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
