@@ -142,6 +142,19 @@ public class QuickSortTester
 	}
 	return ret;
     }
+
+    // REVERSE ORDERED ARRAY
+    public static int[] generateR(int h){
+	int[] ret = new int[h];
+	
+	for (int i = h-1; i > 0 ; i--){
+	    ret[i] = i;
+	}
+	return ret;
+
+    }
+
+    
     // ORDERED ARRAY
     public static int[] generateB(int h){
 	int[] ret = new int[h];
@@ -158,7 +171,7 @@ public class QuickSortTester
 	
     {
 	int h = 10000; //LENGTH OF ARRAY
-	int [] test = generate(h);
+	int [] test = generateR(h);
 
 	
 	double tries = 100;
@@ -168,6 +181,29 @@ public class QuickSortTester
 
         long time;
 
+
+
+	
+
+
+	//Worst Case: Array in reverse order and first element picked as pivot
+	System.out.println("\n\nWorst Case _______________________________________________");
+	
+	for (int i = 0; i < tries; i++){
+	    
+	    time = (System.nanoTime());	    
+	    qsortf (test, 0 , test.length-1);
+	    time=(System.nanoTime()-time);
+	    totaltime+=(double)(time);
+	    shuffle(test);
+	}
+
+	avg = totaltime/ tries;
+	avg = avg / h;
+
+	System.out.println("\nWorst Time: "+ avg + " milliseconds for random pivot \n");
+	
+	/*
 	//AVERAGE CASES
 	System.out.println("\n\nAverage Cases _______________________________________________");
 	
@@ -183,7 +219,7 @@ public class QuickSortTester
 	avg = totaltime/ tries;
 	avg = avg / h;
 
-	System.out.println("\nAverage Time: "+ avg + " milliseconds for random pivot \n");
+	System.out.println("\nAverage Time: "+ avg + " milliseconds for random pivot \n");/*
 	/*
 	test = generate(h);
 	
