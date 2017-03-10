@@ -11,6 +11,8 @@
 ##Pivot Selection
 ![alt text](https://github.com/MrEricL/Hi/blob/master/Screen%20Shot%202017-03-09%20at%2010.45.43%20PM.png "Tries")
 
+The random pivot finished substatially quicker than finding a median, or picking the first element of the array as the pivot.
+
 
 ##Methodology
 
