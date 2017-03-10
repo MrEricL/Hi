@@ -70,7 +70,9 @@ public class QuickSortTester
     }
 
     public static int partition( int[] arr, int left , int right){
-	int pivot = arr[(left+right) / 2];
+	//int pivot = arr[(left+right) / 2];
+	int pivot = arr[left + ((int) ((right - left) * Math.random()))];
+	//int pivot = arr[left];
 	while (left<right){
 	    while (arr[left] < pivot)
 		left++;
@@ -87,10 +89,11 @@ public class QuickSortTester
     }
     
     public static int[] generate(){
-	int[] ret = new int[(int)(Math.random()*15)];
+	int[] ret = new int[1000];
 	
 	for (int i = 0; i < ret.length; i++){
 	    ret[i] = (int)(Math.random()*100);
+	    //ret[i] = i;
 	}
 	return ret;
     }    
@@ -102,7 +105,7 @@ public class QuickSortTester
 	int [] test = generate();
 	
 	double totaltime=0;
-	double tries=10;
+	double tries=100;
 	double avg=0;
 
 
@@ -117,8 +120,9 @@ public class QuickSortTester
 	}
 
 	avg = totaltime/ tries;
+	avg = avg / 1000000;
 
-	System.out.println("\nAverage Time: "+ avg + " for "+(int) tries +" tests\n");
+	System.out.println("\nAverage Time: "+ avg + " milliseconds for "+(int) tries +" tests\n");
 
        	
 	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
