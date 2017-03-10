@@ -2,7 +2,11 @@
 
 ##Runtime Assessment
 
-  Place holder.
+  When the pivot is the midpoint and the array is already sorted: n
+
+  When the pivot is random and the array is random: nlogn
+
+  When the pivot is the first element and the array is sorted: n^2
 
 ##Methodology
 

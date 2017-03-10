@@ -70,8 +70,8 @@ public class QuickSortTester
     }
 
     public static int partition( int[] arr, int left , int right){
-	//int pivot = arr[(left+right) / 2];
-	int pivot = arr[left + ((int) ((right - left) * Math.random()))];
+	int pivot = arr[(left+right) / 2];
+	//int pivot = arr[left + ((int) ((right - left) * Math.random()))];
 	//int pivot = arr[left];
 	while (left<right){
 	    while (arr[left] < pivot)
@@ -92,8 +92,8 @@ public class QuickSortTester
 	int[] ret = new int[1000];
 	
 	for (int i = 0; i < ret.length; i++){
-	    ret[i] = (int)(Math.random()*100);
-	    //ret[i] = i;
+	    //ret[i] = (int)(Math.random()*100);
+	    ret[i] = i;
 	}
 	return ret;
     }    
