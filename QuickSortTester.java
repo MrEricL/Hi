@@ -1,21 +1,3 @@
-/*****************************************************
- * class QuickSort
- * Implements quicksort algo to sort an array of ints in place
- *
- * 1. Summary of QuickSort algorithm:
- * QSort(arr): Quicksort first chooses a pivot. It can either be random or always the same position in the subarray. It then puts every element in the array that is smaller than the pivot to the left of the pivot, and every element that is larger to the right of it, although they arent necessarily in order. The pivot is sorted, so we focus on the elements to the left and to the right, so we recursively call quicksort on the elements to the left and right. THis keeps going until the array being sorted is only size 1, which means it must be sorted, and we can go back up the recursive "chain".
- *
- * 2a. Worst pivot choice / array state and associated runtime: 
-First element in a reverse order array or vie versa
- *
- * 2b. Best pivot choice / array state and associated runtime:
-the pivot that splits the array in half?
- *
- * 3. Approach to handling duplicate values in array:
- * If there are duplicates, while the area before the pivot is being sorted, since two equal values can be placed in any order when being sorted, since they are the same, the counter for moving left is increased in order to make sure that the while loop terminates. 
- *****************************************************/
-
-
 
 public class QuickSortTester 
 {
@@ -87,30 +69,108 @@ public class QuickSortTester
 	}
 	return left;
     }
+
+
+
+    //PIVOT IN THE MIDDLE
+    public static void qsortmid( int[] arr, int left, int right){
+	int pivot = partitionmid(arr,left,right);
+	if (left < pivot - 1)
+	    qsortmid(arr,left,pivot - 1);
+	if (pivot + 1 < right)
+	    qsortmid(arr,pivot + 1 , right);
+	return;
+    }
+
+    public static int partitionmid( int[] arr, int left , int right){
+	int pivot = arr[(left+right) / 2];
+	//	int pivot = arr[left + ((int) ((right - left) * Math.random()))];
+	//int pivot = arr[left];
+	while (left<right){
+	    while (arr[left] < pivot)
+		left++;
+	    while (arr[right] > pivot)
+		right--;
+	    if (left<right){
+		swap(left , right  , arr);
+		//for duplicates 
+		if (arr[left] == arr[right])
+		    left++;
+	    }
+	}
+	return left;
+    }
+
+    //PIVOT IN THE FIRST ONE
+    public static void qsortf( int[] arr, int left, int right){
+	int pivot = partitionf(arr,left,right);
+	if (left < pivot - 1)
+	    qsortf(arr,left,pivot - 1);
+	if (pivot + 1 < right)
+	    qsortf(arr,pivot + 1 , right);
+	return;
+    }
+
+    public static int partitionf( int[] arr, int left , int right){
+	int pivot = arr[0];
+	//	int pivot = arr[left + ((int) ((right - left) * Math.random()))];
+	//int pivot = arr[left];
+	while (left<right){
+	    while (arr[left] < pivot)
+		left++;
+	    while (arr[right] > pivot)
+		right--;
+	    if (left<right){
+		swap(left , right  , arr);
+		//for duplicates 
+		if (arr[left] == arr[right])
+		    left++;
+	    }
+	}
+	return left;
+    }
+
     
-    public static int[] generate(){
-	int[] ret = new int[100000];
+    
+    //RANDOM ARRAY
+    public static int[] generate(int h){
+	int[] ret = new int[h];
 	
 	for (int i = 0; i < ret.length; i++){
 	    ret[i] = (int)(Math.random()*100);
 	    //ret[i] = i;
 	}
 	return ret;
-    }    
+    }
+    // ORDERED ARRAY
+    public static int[] generateB(int h){
+	int[] ret = new int[h];
+	
+	for (int i = 0; i < ret.length; i++){
+	    ret[i] = i;
+	}
+	return ret;
+
+    }
 
     //main method for testing
     public static void main( String[] args )
 	
     {
-	int [] test = generate();
+	int h = 10000; //LENGTH OF ARRAY
+	int [] test = generate(h);
+
 	
+	double tries = 100;
 	double totaltime=0;
-	double tries=100;
 	double avg=0;
 
 
         long time;
 
+	//AVERAGE CASES
+	System.out.println("\n\nAverage Cases _______________________________________________");
+	
 	for (int i = 0; i < tries; i++){
 	    
 	    time = (System.nanoTime());	    
@@ -121,69 +181,45 @@ public class QuickSortTester
 	}
 
 	avg = totaltime/ tries;
-	avg = avg / 1000000;
+	avg = avg / h;
 
-	System.out.println("\nAverage Time: "+ avg + " milliseconds for "+(int) tries +" tests\n");
-
-       	
-	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
-	//get-it-up-and-running, static test case:
-	int [] arr1 = {7,1,5,1,3};
-	System.out.println("\narr1 init'd to: " );
-	printArr(arr1);
-
+	System.out.println("\nAverage Time: "+ avg + " milliseconds for random pivot \n");
+	/*
+	test = generate(h);
 	
-	qsort( arr1 , 0 , arr1.length-1);	
-       	System.out.println("arr1 after qsort: " );
-	printArr(arr1);
+	for (int i = 0; i < tries; i++){
+	    
+	    time = (System.nanoTime());	    
+	    qsortmid (test, 0 , test.length-1);
+	    time=(System.nanoTime()-time);
+	    totaltime+=(double)(time);
+	    shuffle(test);
+	}
 
-	// randomly-generated arrays of n distinct vals
-	int[] arrN = new int[10];
-	for( int i = 0; i < arrN.length; i++ )
-	    arrN[i] = i;
-       
-	System.out.println("\narrN init'd to: " );
-	printArr(arrN);
+	avg = totaltime/ tries;
+	avg = avg / h;
 
-       	shuffle(arrN);
-       	System.out.println("arrN post-shuffle: " );
-	printArr(arrN);
+	System.out.println("\nAverage Time: "+ avg + " milliseconds for middle \n");
 
-	qsort( arrN , 0 , arrN.length-1);
-	System.out.println("arrN after sort: " );
-	printArr(arrN);
+	test = generate(h);
+	
+	for (int i = 0; i < tries; i++){
+	    
+	    time = (System.nanoTime());	    
+	    qsortf(test, 0 , test.length-1);
+	    time=(System.nanoTime()-time);
+	    totaltime+=(double)(time);
+	    shuffle(test);
+	}
 
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+	avg = totaltime/ tries;
+	avg = avg / h;
 
+	System.out.println("\nAverage Time: "+ avg + " milliseconds for first \n");
 
-	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
+	*/
+	System.out.println("__________________________________________________________\n\n\n");
 
-	//get-it-up-and-running, static test case w/ dupes:
-	int [] arr2 = {7,1,5,12,3,7};
-	System.out.println("\narr2 init'd to: " );
-	printArr(arr2);
-
-	qsort( arr2 );	
-       	System.out.println("arr2 after qsort: " );
-	printArr(arr2);
-
-
-	// arrays of randomly generated ints
-	int[] arrMatey = new int[20];
-	for( int i = 0; i < arrMatey.length; i++ )
-	    arrMatey[i] = (int)( 48 * Math.random() );
-       
-	System.out.println("\narrMatey init'd to: " );
-	printArr(arrMatey);
-
-       	shuffle(arrMatey);
-       	System.out.println("arrMatey post-shuffle: " );
-	printArr(arrMatey);
-
-	qsort( arrMatey );
-	System.out.println("arrMatey after sort: " );
-	printArr(arrMatey);
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     }//end main
 
