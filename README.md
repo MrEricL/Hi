@@ -10,7 +10,7 @@
 
 ##Methodology
 
-  Place holder.
+  The class QuickSortTester runs quicksort against arrays of 1000, 5000, 10000, 50000, and 100000 elements. Trials are timed; the program runs the sort 100 times on each array size before averaging the times for each array. This data is collected and recorded before being graphed. The graph is then compared to the standard Big O graphs to figure out its efficiency.
 
 ##Statistics
 
