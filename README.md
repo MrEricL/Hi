@@ -7,6 +7,10 @@
   When the pivot is random and the array is random: nlogn
 
   When the pivot is the first element and the array is sorted: n^2
+  
+##Pivot Selection
+![alt text](https://github.com/MrEricL/Hi/blob/master/Screen%20Shot%202017-03-09%20at%2010.45.43%20PM.png "Tries")
+
 
 ##Methodology
 
